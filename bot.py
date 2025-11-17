@@ -2,6 +2,7 @@ import requests
 from telegram import Bot
 from datetime import datetime
 import os
+import asyncio
 
 API_KEY_WEATHER = os.getenv("API_KEY_WEATHER")
 API_TELEGRAM = os.getenv("API_TELEGRAM")
@@ -24,8 +25,9 @@ def obtener_clima():
 ☁ Condición: {clima}
 """
 
-def enviar():
+async def enviar():
     bot = Bot(API_TELEGRAM)
-    bot.send_message(chat_id=CHANNEL, text=obtener_clima(), parse_mode="Markdown")
+    await bot.send_message(chat_id=CHANNEL, text=obtener_clima(), parse_mode="Markdown")
 
-enviar()
+if __name__ == "__main__":
+    asyncio.run(enviar())
